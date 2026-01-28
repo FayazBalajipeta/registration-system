@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registration Form</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="container">
+  <h2>Registration Form</h2>
+
+  <div id="formError" class="form-error"></div>
+
+  <form id="regForm">
+
+    <input type="text" id="firstName" placeholder="First Name *" />
+    <span class="error"></span>
+
+    <input type="text" id="lastName" placeholder="Last Name *" />
+    <span class="error"></span>
+
+    <input type="email" id="email" placeholder="Email *" />
+    <span class="error"></span>
+
+    <input type="text" id="phone" placeholder="Phone Number *" />
+    <span class="error"></span>
+
+    <input type="number" id="age" placeholder="Age" />
+
+    <!-- GENDER -->
+    <div class="gender">
+      <label>
+        <input type="radio" name="gender" value="Male" />
+        <span>Male</span>
+      </label>
+      <label>
+        <input type="radio" name="gender" value="Female" />
+        <span>Female</span>
+      </label>
+      <label>
+        <input type="radio" name="gender" value="Other" />
+        <span>Other</span>
+      </label>
+    </div>
+
+    <textarea id="address" placeholder="Address"></textarea>
+
+    <select id="country">
+      <option value="">Select Country *</option>
+    </select>
+
+    <select id="state" disabled>
+      <option value="">Select State *</option>
+    </select>
+
+    <select id="city" disabled>
+      <option value="">Select City *</option>
+    </select>
+
+    <input type="password" id="password" placeholder="Password *" />
+    <div id="strength"></div>
+
+    <input type="password" id="confirmPassword" placeholder="Confirm Password *" />
+    <span class="error"></span>
+
+    <div class="terms">
+  <input type="checkbox" id="terms" />
+  <label for="terms">I accept Terms & Conditions *</label>
+</div>
+
+
+    <!-- STICKY FOOTER -->
+    <div class="form-footer">
+      <button type="submit" id="submitBtn" disabled>Register</button>
+    </div>
+
+  </form>
+
+  <div id="successMsg"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
