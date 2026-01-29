@@ -76,6 +76,7 @@ password.addEventListener("input", () => {
 
 /* VALIDATION */
 form.addEventListener("input", validateForm);
+form.addEventListener("change", validateForm);
 
 function validateForm() {
   let valid = true;

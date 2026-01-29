@@ -1,20 +1,13 @@
 describe("Registration Form Automation", () => {
 
   beforeEach(() => {
-    cy.visit("http://localhost:3000");
+    cy.visit("http://localhost:5500");
   });
 
   /* ==========================
      FLOW A: NEGATIVE SCENARIO
   ========================== */
-  it("Should show error when Last Name is missing", () => {
-    cy.title().then(title => {
-      cy.log("Page Title:", title);
-    });
-
-    cy.url().then(url => {
-      cy.log("Page URL:", url);
-    });
+  it("Should keep submit disabled when Last Name is missing", () => {
 
     cy.get("#firstName").type("Fayaz");
     cy.get("#email").type("fayaz@gmail.com");
@@ -31,11 +24,8 @@ describe("Registration Form Automation", () => {
 
     cy.get("#terms").check();
 
-    cy.get("#submitBtn").click();
-
-    cy.get("#formError")
-      .should("be.visible")
-      .and("contain", "Last Name");
+    // ✅ Correct assertion
+    cy.get("#submitBtn").should("be.disabled");
 
     cy.screenshot("error-state");
   });
@@ -44,6 +34,7 @@ describe("Registration Form Automation", () => {
      FLOW B: POSITIVE SCENARIO
   ========================== */
   it("Should submit successfully with valid data", () => {
+
     cy.get("#firstName").type("Fayaz");
     cy.get("#lastName").type("Balaji");
     cy.get("#email").type("fayaz@gmail.com");
@@ -60,7 +51,10 @@ describe("Registration Form Automation", () => {
 
     cy.get("#terms").check();
 
-    cy.get("#submitBtn").should("not.be.disabled").click();
+    // ✅ Button now enables correctly
+    cy.get("#submitBtn")
+      .should("not.be.disabled")
+      .click();
 
     cy.get("#successMsg")
       .should("be.visible")
@@ -72,24 +66,20 @@ describe("Registration Form Automation", () => {
   /* ==========================
      FLOW C: LOGIC VALIDATION
   ========================== */
-  it("Should validate dynamic dropdowns and password logic", () => {
+  it("Should validate dropdowns and password strength", () => {
 
-    // Country → State
     cy.get("#country").select("USA");
     cy.get("#state").should("not.be.disabled");
 
-    // State → City
     cy.get("#state").select("Texas");
     cy.get("#city").should("not.be.disabled");
 
-    // Password strength
     cy.get("#password").type("abc");
     cy.get("#strength").should("contain", "Weak");
 
     cy.get("#password").clear().type("Abc123");
     cy.get("#strength").should("contain", "Strong");
 
-    // Confirm password mismatch
     cy.get("#confirmPassword").type("Wrong123");
     cy.get("#submitBtn").should("be.disabled");
 
